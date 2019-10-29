@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import CustomerDetail from "./customerDetail";
+import { Link } from "react-router-dom";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -44,6 +46,15 @@ const Customers = () => {
     {
       Header: "Email_Address",
       accessor: "email"
+    },
+    {
+      sortable: false,
+      filterable: false,
+      Cell: index => (
+        <Link to={`/customers/${index.index}`}>
+          <CustomerDetail />
+        </Link>
+      )
     }
   ];
 

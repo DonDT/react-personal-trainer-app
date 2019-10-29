@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import Customers from "./components/customers";
-import Trainings from "./components/trainings";
 import { Switch, Route, Link } from "react-router-dom";
+import CustomerDetail from "./components/customerDetail";
 
 function App() {
   return (
@@ -11,13 +11,11 @@ function App() {
       <h3>
         <Link to="/customers">Customers</Link>
       </h3>
-      <h3>
-        <Link to="/trainings">Trainings</Link>
-      </h3>
 
       <Switch>
         <Route path="/customers" exact component={Customers} />
-        <Route path="/trainings" exact component={Trainings} />
+
+        <Route path="/customers/:id" exact component={CustomerDetail} />
       </Switch>
     </div>
   );

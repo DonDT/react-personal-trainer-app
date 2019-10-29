@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function Trainings() {
   const [trainings, setTrainings] = useState([]);
-  const [tran, setTran] = useState([]);
+  //sconst [tran, setTran] = useState([]);
 
   useEffect(() => {
     fetchTrainings();
@@ -22,7 +22,7 @@ function Trainings() {
           `https://customerrest.herokuapp.com/api/customers/${i + 1}/trainings`
         )
           .then(response => response.json())
-          .then(data => console.log(data))
+          //.then(data => console.log(data))
           .catch(err => console.log(err))
       );
     }
