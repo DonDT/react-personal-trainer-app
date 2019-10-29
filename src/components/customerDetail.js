@@ -28,7 +28,7 @@ const CustomerDetail = props => {
   const columns = [
     {
       Header: "Date",
-      accessor: "date.moment().format('MMMM Do YYYY, h:mm:ss a')"
+      accessor: "date"
     },
     {
       Header: "Duration",
