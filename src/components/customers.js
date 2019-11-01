@@ -3,9 +3,11 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import CustomerDetail from "./customerDetail";
 import { Link } from "react-router-dom";
+import AddCustomer from "./AddCustomer";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetchCustomers();
@@ -14,8 +16,22 @@ const Customers = () => {
   const fetchCustomers = () => {
     fetch("https://customerrest.herokuapp.com/api/customers")
       .then(response => response.json())
+      //.then(response => console.log(text))
       .then(data => setCustomers(data.content))
+      //.then(data => console.log(data.content))
       .catch(error => console.log(error));
+  };
+
+  const saveCustomer = newCustomer => {
+    fetch("https://customerrest.herokuapp.com/api/customers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newCustomer)
+    })
+      .then(res => fetchCustomers())
+      .catch(err => console.log(err));
   };
 
   const columns = [
@@ -52,7 +68,7 @@ const Customers = () => {
       filterable: false,
       Cell: index => (
         <Link to={`/customers/${index.index}`}>
-          <CustomerDetail />
+          <CustomerDetail link={customers[index.index].links[0].href} />
         </Link>
       )
     }
@@ -60,6 +76,9 @@ const Customers = () => {
 
   return (
     <div>
+      <div>
+        <AddCustomer saveCustomer={saveCustomer} setOpen={setOpen} />
+      </div>
       <ReactTable
         defaultPageSize={10}
         data={customers}
