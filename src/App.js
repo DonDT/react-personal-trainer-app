@@ -11,11 +11,13 @@ function App() {
       <h3>
         <Link to="/customers">Customers</Link>
       </h3>
-
+      <h3>
+        <Link to="/customers/trainings">Trainings</Link>
+      </h3>
       <Switch>
         <Route path="/customers" exact component={Customers} />
 
-        <Route path="/customers/:id" exact component={CustomerDetail} />
+        <Route path="/customers/trainings" exact component={CustomerDetail} />
       </Switch>
     </div>
   );
