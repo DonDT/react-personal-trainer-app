@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import CustomerDetail from "./customerDetail";
-import { Link } from "react-router-dom";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import Snackbar from "@material-ui/core/Snackbar";
-//import Grid from "@material-ui/core/Grid";
 
 import Button from "@material-ui/core/Button";
 
@@ -22,7 +19,6 @@ const Customers = () => {
   const fetchCustomers = () => {
     fetch("https://customerrest.herokuapp.com/api/customers")
       .then(response => response.json())
-      //.then(response => console.log(text))
       .then(data => setCustomers(data.content))
       //.then(data => console.log(data.content))
       .catch(error => console.log(error));
@@ -69,8 +65,6 @@ const Customers = () => {
     setOpen(false);
   };
 
-  //https://customerrest.herokuapp.com/api/customers/12/trainings
-
   const columns = [
     {
       Header: "Firstname",
@@ -100,15 +94,6 @@ const Customers = () => {
       Header: "Email_Address",
       accessor: "email"
     },
-    // {
-    //   sortable: false,
-    //   filterable: false,
-    //   Cell: index => (
-    //     <Link to={`/customers/${index.index}`}>
-    //       <CustomerDetail link={customers[index.index].links[2].href} />
-    //     </Link>
-    //   )
-    // },
     {
       sortable: false,
       filterable: false,
@@ -132,7 +117,6 @@ const Customers = () => {
       )
     }
   ];
-  //console.log(customers);
 
   return (
     <div>
