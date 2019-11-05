@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import ReactTable from "react-table";
 import AddTraining from "./AddTraining";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
-
-//import moment from "moment";
+import Moment from "moment";
 
 const CustomerDetail = props => {
   const [customer, setCustomer] = useState([]);
@@ -21,7 +20,7 @@ const CustomerDetail = props => {
   const fetchCustomer = () => {
     fetch("https://customerrest.herokuapp.com/gettrainings")
       .then(response => response.json())
-      // .then(response => console.log(response))
+      //.then(response => console.log(response));
       .then(data => setCustomer(data));
   };
 
@@ -59,18 +58,31 @@ const CustomerDetail = props => {
       accessor: "customer.email"
     },
     {
-      Header: "Phone",
-      accessor: "customer.phone"
+      sortable: false,
+      filterable: false,
+      // accessor: "links[2].href",
+
+      Cell: index => (
+        <Link
+          to={`/customers/${customer[index.index].customer.id}`}
+          //onClick={() => deleteTraining(customer[index.index].id)}
+        >
+          Calendar
+        </Link>
+      )
     },
+    // {
+    //   Header: "Phone",
+    //   accessor: "customer.phone"
+    // },
 
     {
       Header: "Date",
-      accessor: "date"
-      // id: "date",
-      // accessor: row => moment(customer.date).format("YYYY-MM-DD"),
-      // Cell: row => moment(customer.date).format("DD - MMM - YYYY")
-      //       accessor: row => moment(row.start).format('x'),
-      // Cell: row => moment(row.original.start).format('lll'),
+      id: "date",
+      accessor: row =>
+        Moment(row.date)
+          .local()
+          .format("DD - MMM - YYYY")
     },
     {
       Header: "Duration",
@@ -116,6 +128,8 @@ const CustomerDetail = props => {
       )
     }
   ];
+
+  console.log(customer);
 
   const saveTraining = (newTraining, id) => {
     fetch(`https://customerrest.herokuapp.com/api/trainings`, {

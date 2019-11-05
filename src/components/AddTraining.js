@@ -70,15 +70,6 @@ const AddTraining = props => {
             label="Duration"
             fullWidth
           />
-          {/* <TextField
-            margin="dense"
-            id="name"
-            value={training.duration}
-            onChange={e => handleInputChange(e)}
-            name="streetaddress"
-            label="Street Address"
-            fullWidth
-          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
