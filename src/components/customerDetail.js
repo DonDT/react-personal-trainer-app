@@ -129,7 +129,7 @@ const CustomerDetail = props => {
     }
   ];
 
-  console.log(customer);
+  //console.log(customer);
 
   const saveTraining = (newTraining, id) => {
     fetch(`https://customerrest.herokuapp.com/api/trainings`, {

@@ -5,9 +5,10 @@ import { withRouter } from "react-router-dom";
 import "../App.css";
 
 const CustomerCalender = props => {
-  const [date, setDate] = useState([]);
-  const [activity, setActivity] = useState([]);
-  const [duration, setDuration] = useState([]);
+  // const [date, setDate] = useState([]);
+  // const [activity, setActivity] = useState([]);
+  // const [duration, setDuration] = useState([]);
+  const [data, setData] = useState([{ date: "", activity: "", duration: "" }]);
 
   useEffect(() => {
     fetchCustomerTrainings();
@@ -20,17 +21,27 @@ const CustomerCalender = props => {
       .then(response => response.json())
       //.then(response => response.content)
       //.then(response => setActivity(response.content.activity))
-      .then(response => setState(response.content))
+      .then(response => setItems(response.content))
       //.then(response => console.log(response.content))
       .catch(error => console.log(error));
   };
 
-  const setState = data => {
-    data.forEach(arrayItem => setActivity(...activity, arrayItem.activity));
-    data.forEach(arrayItem => setDate(...date, arrayItem.date));
-    data.forEach(arrayItem => setDuration(...duration, arrayItem.duration));
+  const setItems = items => {
+    return items.forEach(item =>
+      setData(...data, {
+        date: item.date,
+        activity: item.activity,
+        duration: item.duration
+      })
+    );
   };
-  console.log(activity, date, duration);
+
+  // const setState = data => {
+
+  //   data.forEach(arrayItem => setActivity(...activity, arrayItem.activity));
+  //   data.forEach(arrayItem => setDate(...date, arrayItem.date));
+  //   data.forEach(arrayItem => setDuration(...duration, arrayItem.duration));
+  // };
   return (
     <FullCalendar
       defaultView="dayGridMonth"
