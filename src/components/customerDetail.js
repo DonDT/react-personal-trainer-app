@@ -82,7 +82,8 @@ const CustomerDetail = props => {
       accessor: row =>
         Moment(row.date)
           .local()
-          .format("DD - MMM - YYYY")
+          .format("YYYY-MM-DD")
+      //.format("DD - MMM - YYYY")
     },
     {
       Header: "Duration",

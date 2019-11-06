@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { withRouter } from "react-router-dom";
+//import Moment from "moment";
 import "../App.css";
 
 const CustomerCalender = props => {
-  // const [date, setDate] = useState([]);
-  // const [activity, setActivity] = useState([]);
-  // const [duration, setDuration] = useState([]);
-  const [data, setData] = useState([{ date: "", activity: "", duration: "" }]);
+  const [show, setShow] = useState(false);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetchCustomerTrainings();
@@ -19,36 +18,47 @@ const CustomerCalender = props => {
 
     fetch(`https://customerrest.herokuapp.com/api/customers/${id}/trainings`)
       .then(response => response.json())
-      //.then(response => response.content)
-      //.then(response => setActivity(response.content.activity))
-      .then(response => setItems(response.content))
-      //.then(response => console.log(response.content))
+      .then(response =>
+        response.content.forEach(item =>
+          data.push({
+            title: `${item.activity} | Duration:${item.duration} min`,
+            date: `${item.date}`
+          })
+        )
+      )
+      // .then(response =>
+      //   response.content.forEach(item =>
+      //     setData(...data, {
+      //       title: `${item.activity} | Duration:${item.duration} min`,
+      //       date: `${item.date}`
+      //     })
+      //   )
+      // )
+      //.then(response => setItems(response.content))
+      .then(response => setShow(true))
       .catch(error => console.log(error));
   };
 
-  const setItems = items => {
-    return items.forEach(item =>
-      setData(...data, {
-        date: item.date,
-        activity: item.activity,
-        duration: item.duration
-      })
-    );
-  };
-
-  // const setState = data => {
-
-  //   data.forEach(arrayItem => setActivity(...activity, arrayItem.activity));
-  //   data.forEach(arrayItem => setDate(...date, arrayItem.date));
-  //   data.forEach(arrayItem => setDuration(...duration, arrayItem.duration));
+  // const setItems = datta => {
+  //   datta.forEach(item => {
+  //     return setData(...data, {
+  //       title: `${item.activity} | Duration:${item.duration} min`,
+  //       date: `${item.date}`
+  //     });
+  //   });
   // };
+
   return (
-    <FullCalendar
-      defaultView="dayGridMonth"
-      plugins={[dayGridPlugin]}
-      events={[{ title: "Swimming", date: "2019-11-11" }]}
-    />
+    <div>
+      {show && (
+        <FullCalendar
+          defaultView="dayGridMonth"
+          plugins={[dayGridPlugin]}
+          events={data}
+        />
+      )}
+    </div>
   );
 };
 
-export default withRouter(CustomerCalender);
+export default CustomerCalender;
