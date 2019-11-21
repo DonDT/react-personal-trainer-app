@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap");
+
+body {
+  background: #0020e5;
+}
+
+h1 {
+  font-family: "Ibarra Real Nova", serif;
+  font-size: 3.5rem;
+  color: white;
+}
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-1 {
+}
+
+.startButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem;
+  padding: 3rem;
+}
+.buttonText {
+  padding: 3rem;
+  border-radius: 2rem;
+  width: 15rem;
+}
