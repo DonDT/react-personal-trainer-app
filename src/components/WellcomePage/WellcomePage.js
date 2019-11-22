@@ -8,6 +8,16 @@ import Flip from "react-reveal/Flip";
 import "./WellcomePage.css";
 
 class WellcomePage extends Component {
+  state = {
+    show: false
+  };
+
+  handleClick = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
+
   render() {
     return (
       <div className="Wellcome">
@@ -27,14 +37,24 @@ class WellcomePage extends Component {
             </div>
           </Fade>
         </div>
-        <Flip left delay={900}>
-          <div className="startButton">
-            <button className="buttonText">
-              <span className="getStarted">Get Started</span>
-              <h3 className="buttonIcon">&raquo;</h3>
-            </button>
-          </div>
-        </Flip>
+        <div>
+          <Flip left opposite collapse when={this.state.show}>
+            <div className="authButtons">
+              <button>Login</button>
+              <button>Create Account</button>
+            </div>
+          </Flip>
+          <Flip left delay={900}>
+            <div className="startButton">
+              <button className="buttonText" onClick={this.handleClick}>
+                <span className="getStarted">
+                  {this.state.show ? "Hide Auth" : "Get Started"}
+                </span>
+                <h3 className="buttonIcon">&raquo;</h3>
+              </button>
+            </div>
+          </Flip>
+        </div>
       </div>
     );
   }
