@@ -4,9 +4,9 @@ body {
   background: #0020e5;
 }
 
-h1 {
+.Wellcome h1 {
   font-family: "Ibarra Real Nova", serif;
-  font-size: 3.5rem;
+  font-size: 5.5rem;
   color: white;
 }
 .images {
@@ -14,7 +14,7 @@ h1 {
   justify-content: center;
   align-items: center;
 }
-.image-1 {
+.image-2 {
 }
 
 .startButton {
@@ -22,10 +22,31 @@ h1 {
   justify-content: center;
   align-items: center;
   margin: 5rem;
-  padding: 3rem;
 }
 .buttonText {
-  padding: 3rem;
   border-radius: 2rem;
   width: 15rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  margin: 0 auto;
+  color: #0020e5;
+  padding-bottom: 1rem;
 }
+.startButton .buttonText h3 {
+  margin-left: 10px;
+  font-size: 2.5rem;
+}
+
+/* .buttonIcon {
+  font-size: 3.5rem;
+  margin: 0 auto;
+  color: #0020e5;
+}
+.getStarted {
+  font-size: 1.5rem;
+  margin: 0 auto;
+  color: #0020e5;
+} */

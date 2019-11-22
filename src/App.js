@@ -23,7 +23,7 @@ function App() {
         <Route path="/customers" exact component={Customers} />
         <Route path="/customers/trainings" exact component={CustomerDetail} />
         <Route path="/customers/:id" exact component={CustomerCalender} />
-        <Route path="/wellcome" exact component={WellcomePage} />
+        <Route path="/" exact component={WellcomePage} />
       </Switch>
     </div>
   );
