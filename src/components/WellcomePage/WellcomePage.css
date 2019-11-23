@@ -1,7 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
 body {
-  background: #0020e5;
+  min-height: 100%;
 }
 
 .Wellcome h1 {
@@ -14,14 +22,11 @@ body {
   justify-content: center;
   align-items: center;
 }
-.image-2 {
-}
 
 .startButton {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5rem;
 }
 .buttonText {
   border-radius: 2rem;

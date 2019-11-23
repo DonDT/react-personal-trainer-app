@@ -4,6 +4,7 @@ import Image2 from "./Images/paige-hathaway-removebg-preview.png";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 import Flip from "react-reveal/Flip";
+import { Link } from "react-router-dom";
 
 import "./WellcomePage.css";
 
@@ -20,7 +21,10 @@ class WellcomePage extends Component {
 
   render() {
     return (
-      <div className="Wellcome">
+      <div
+        className="Wellcome"
+        style={{ backgroundColor: "#0020e5", height: "100vh" }}
+      >
         <Zoom delay={300}>
           <h1>Personal Trainer</h1>
         </Zoom>
@@ -37,11 +41,19 @@ class WellcomePage extends Component {
             </div>
           </Fade>
         </div>
-        <div>
+        <div className="footerDiv">
           <Flip left opposite collapse when={this.state.show}>
             <div className="authButtons">
-              <button>Login</button>
-              <button>Create Account</button>
+              <button>
+                <Link to="/login_register" style={{ textDecoration: "none" }}>
+                  Login
+                </Link>
+              </button>
+              <button>
+                <Link to="/login_register" style={{ textDecoration: "none" }}>
+                  Register
+                </Link>
+              </button>
             </div>
           </Flip>
           <Flip left delay={900}>
