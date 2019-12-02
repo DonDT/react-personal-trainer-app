@@ -4,8 +4,8 @@ import "react-table/react-table.css";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import Snackbar from "@material-ui/core/Snackbar";
-
 import Button from "@material-ui/core/Button";
+import { getTokens } from "../authActions";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -14,6 +14,9 @@ const Customers = () => {
 
   useEffect(() => {
     fetchCustomers();
+    getTokens(value => {
+      console.log(value);
+    });
   }, []);
 
   const fetchCustomers = () => {

@@ -2,8 +2,153 @@ import React, { Component } from "react";
 import "./Authentication.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ValidationRules from "../../utilsFunctions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { signIn, signUp } from "../../store/actions/user_actions";
+import { setTokens } from "../../authActions";
+import { withRouter } from "react-router-dom";
 
 class LoginRegister extends Component {
+  state = {
+    type: "Login",
+    action: "Login",
+    hasErrors: false,
+    form: {
+      login: {
+        email: {
+          value: "",
+          valid: false,
+          type: "textInput",
+          rules: {
+            isRequired: true,
+            isEmail: true
+          }
+        },
+        password: {
+          value: "",
+          valid: false,
+          type: "textInput",
+          rules: {
+            isRequired: true,
+            minLength: 6
+          }
+        }
+      },
+      register: {
+        name: {
+          value: "",
+          valid: false,
+          type: "textInput",
+          rules: {
+            isRequired: true
+          }
+        },
+        email: {
+          value: "",
+          valid: false,
+          type: "textInput",
+          rules: {
+            isRequired: true,
+            isEmail: true
+          }
+        },
+
+        password: {
+          value: "",
+          valid: false,
+          type: "textInput",
+          rules: {
+            isRequired: true,
+            minLength: 6
+          }
+        },
+        confirmPassword: {
+          value: "",
+          valid: false,
+          type: "textinput",
+          rules: {
+            confirmPassword: "password"
+          }
+        }
+      }
+    }
+  };
+
+  updateInput = (event, name, kind) => {
+    this.setState({
+      hasErrors: false
+    });
+    let formCopy = this.state.form;
+    formCopy[kind][name].value = event.target.value;
+
+    let rules = formCopy[kind][name].rules;
+    let value = event.target.value;
+    let valid = ValidationRules(value, rules, formCopy);
+    // console.log(value, rules, formCopy);
+
+    formCopy[kind][name].valid = valid;
+    this.setState({
+      form: formCopy
+    });
+
+    //console.log(formCopy[kind][name].valid);
+  };
+
+  manageAccess = () => {
+    // since we have access to state through redux, when the user sign in
+    if (!this.props.User.auth.uid) {
+      // if there is no id throw an error
+      this.setState({ hasErrors: true });
+    } else {
+      // else pass the data, set the state of errors to false, and go next.
+      setTokens(this.props.User.auth, () => {
+        //console.log("Tokens");
+        this.setState({ hasErrors: false });
+        this.props.history.push("/customers");
+      });
+    }
+  };
+
+  submitUserInfo = authType => {
+    let isFormValid = true;
+    let formToSubmit = {};
+
+    const registerFormCopy = this.state.form.register;
+    const loginFormCopy = this.state.form.login;
+
+    if (authType === "Login") {
+      for (let key in loginFormCopy) {
+        isFormValid = isFormValid && loginFormCopy[key].value;
+        formToSubmit[key] = loginFormCopy[key].value;
+      }
+    } else {
+      for (let key in registerFormCopy) {
+        if (key !== "confirmPassword") {
+          isFormValid = isFormValid && registerFormCopy[key].value;
+          formToSubmit[key] = registerFormCopy[key].value;
+        }
+      }
+    }
+
+    if (isFormValid) {
+      if (authType === "Login") {
+        this.props.signIn(formToSubmit).then(() => {
+          console.log("Login in");
+          this.manageAccess();
+        });
+      } else {
+        this.props.signUp(formToSubmit).then(() => {
+          this.manageAccess();
+        });
+      }
+    } else {
+      this.setState({ hasErrors: true });
+    }
+
+    console.log(formToSubmit);
+  };
+
   render() {
     return (
       <div className="main_container" style={{ backgroundColor: "white" }}>
@@ -19,23 +164,37 @@ class LoginRegister extends Component {
           <form noValidate autoComplete="off">
             <div className="firstInput">
               <TextField
-                id="outlined-basic"
+                name="email"
+                //id="outlined-basic"
                 label="Email"
                 variant="outlined"
                 fullWidth
+                //type={this.state.form.email.type}
+                value={this.state.form.login.email.value}
+                onChange={value => this.updateInput(value, "email", "login")}
+                disabled={this.state.form.register.name.value !== ""}
               />
             </div>
             <div>
               <TextField
-                id="outlined-basic"
+                name="password"
+                //id="outlined-basic"
                 label="Password"
                 variant="outlined"
+                type="password"
+                value={this.state.form.login.password.value}
+                onChange={value => this.updateInput(value, "password", "login")}
+                disabled={this.state.form.register.name.value !== ""}
                 fullWidth
               />
             </div>
             <div className="submitButton">
-              <Button variant="outlined" color="primary">
-                Submit
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => this.submitUserInfo("Login")}
+              >
+                Login
               </Button>
             </div>
           </form>
@@ -45,31 +204,67 @@ class LoginRegister extends Component {
           <form noValidate autoComplete="off">
             <div className="firstInput">
               <TextField
-                id="outlined-basic"
+                name="name"
+                //id="outlined-basic"
                 label="Name"
                 variant="outlined"
+                //type={this.state.form.name.type}
+                value={this.state.form.register.name.value}
+                onChange={value => this.updateInput(value, "name", "register")}
                 fullWidth
+                disabled={this.state.form.login.email.value !== ""}
               />
             </div>
             <div>
               <TextField
-                id="outlined-basic"
+                name="email"
+                //id="outlined-basic"
                 label="Email"
                 variant="outlined"
+                // type={this.state.form.email.type}
+                value={this.state.form.register.email.value}
+                onChange={value => this.updateInput(value, "email", "register")}
                 fullWidth
+                disabled={this.state.form.login.email.value !== ""}
               />
             </div>
             <div className="lastInput">
               <TextField
-                id="outlined-basic"
+                name="password"
+                //id="outlined-basic"
                 label="Password"
                 variant="outlined"
+                type="password"
+                value={this.state.form.register.password.value}
+                onChange={value =>
+                  this.updateInput(value, "password", "register")
+                }
                 fullWidth
+                disabled={this.state.form.login.password.value !== ""}
+              />
+            </div>
+            <div className="lastInput">
+              <TextField
+                name="confirmPassword"
+                //id="outlined-basic"
+                label="ConfirmPassword"
+                variant="outlined"
+                type="password"
+                value={this.state.form.register.confirmPassword.value}
+                onChange={value =>
+                  this.updateInput(value, "confirmPassword", "register")
+                }
+                fullWidth
+                disabled={this.state.form.login.email.value !== ""}
               />
             </div>
 
             <div className="submitButton">
-              <Button variant="outlined" color="primary">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => this.submitUserInfo("Register")}
+              >
                 Register
               </Button>
             </div>
@@ -89,4 +284,17 @@ class LoginRegister extends Component {
   }
 }
 
-export default LoginRegister;
+const mapStateToProps = state => {
+  return {
+    User: state.User
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ signIn, signUp }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(LoginRegister));
