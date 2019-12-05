@@ -14,6 +14,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { FaTrashAlt } from "react-icons/fa";
+import "./customers.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -147,18 +148,11 @@ const Customers = props => {
   };
 
   return (
-    <div>
+    <div className="mainBody">
       <div className={classes.root} style={{ marginBottom: "100px" }}>
         <AppBar position="static">
           <Toolbar>
-            {/* <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            > */}
             <AddCustomer saveCustomer={saveCustomer} setOpen={setOpen} />
-            {/* </IconButton> */}
             <Typography variant="h6" className={classes.title}>
               <Link
                 to="/customers/trainings"

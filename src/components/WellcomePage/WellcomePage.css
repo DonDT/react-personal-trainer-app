@@ -6,10 +6,14 @@
   box-sizing: border-box;
 }
 html {
-  height: 100%;
+  height: 100vh;
 }
-body {
-  min-height: 100%;
+
+.Wellcome {
+  height: 200vh;
+  width: 100vw;
+  background-color: #0020e5 !important;
+  background-size: cover;
 }
 
 .Wellcome h1 {
@@ -20,14 +24,16 @@ body {
   padding-top: 30px;
 }
 .images {
-  /* display: flex; */
-  display: grid;
+  display: flex;
+  /* display: grid;
   grid-template-columns: 500px 500px;
   grid-template-rows: minmax(580px, auto);
-  /*height: 580px;*/
-  grid-gap: 20px;
+  grid-gap: 20px; */
   justify-content: center;
   align-items: center;
+  width: auto;
+  height: 580px;
+  flex-wrap: wrap;
 }
 
 .startButton {
@@ -71,17 +77,18 @@ body {
 }
 .image-1 {
   margin-right: 35px;
-  width: 100%;
   height: 100%;
   border: 1px solid white;
   border-radius: 5px;
+  margin-bottom: 25px;
 }
 .image-2 {
   margin-left: 35px;
-  width: 100%;
+  min-width: 350px;
   height: 100%;
   border: 1px solid white;
   border-radius: 5px;
+  margin-bottom: 25px;
 }
 .image_2_style {
   background-size: 100%;

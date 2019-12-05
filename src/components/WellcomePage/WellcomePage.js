@@ -27,10 +27,7 @@ class WellcomePage extends Component {
 
   render() {
     return (
-      <div
-        className="Wellcome"
-        style={{ backgroundColor: "#0020e5", height: "100vh" }}
-      >
+      <div className="Wellcome">
         <Zoom delay={300}>
           <h1>Personal Trainer</h1>
         </Zoom>
@@ -50,32 +47,32 @@ class WellcomePage extends Component {
               />
             </div>
           </Fade>
-        </div>
-        <div className="footerDiv">
-          <Flip left opposite collapse when={this.state.show}>
-            <div className="authButtons">
-              <button>
-                <Link to="/login_register" style={{ textDecoration: "none" }}>
-                  Login
-                </Link>
-              </button>
-              <button>
-                <Link to="/login_register" style={{ textDecoration: "none" }}>
-                  Register
-                </Link>
-              </button>
-            </div>
-          </Flip>
-          <Flip left delay={900}>
-            <div className="startButton">
-              <button className="buttonText" onClick={this.handleClick}>
-                <span className="getStarted">
-                  {this.state.show ? "Hide Auth" : "Get Started"}
-                </span>
-                <h3 className="buttonIcon">&raquo;</h3>
-              </button>
-            </div>
-          </Flip>
+          <div className="footerDiv">
+            <Flip left opposite collapse when={this.state.show}>
+              <div className="authButtons">
+                <button>
+                  <Link to="/login_register" style={{ textDecoration: "none" }}>
+                    Login
+                  </Link>
+                </button>
+                <button>
+                  <Link to="/login_register" style={{ textDecoration: "none" }}>
+                    Register
+                  </Link>
+                </button>
+              </div>
+            </Flip>
+            <Flip left delay={900}>
+              <div className="startButton">
+                <button className="buttonText" onClick={this.handleClick}>
+                  <span className="getStarted">
+                    {this.state.show ? "Hide Auth" : "Get Started"}
+                  </span>
+                  <h3 className="buttonIcon">&raquo;</h3>
+                </button>
+              </div>
+            </Flip>
+          </div>
         </div>
       </div>
     );

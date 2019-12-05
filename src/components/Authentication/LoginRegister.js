@@ -168,130 +168,141 @@ class LoginRegister extends Component {
   render() {
     return (
       <div className="main_container" style={{ backgroundColor: "white" }}>
-        <div>
-          <p className="LoginText">
-            Login here as a newly registered customer or a new customer. Your
-            credentials are highly secured and if you desire, you can chose
-            multiplevel authentication.
-          </p>
+        <div className="loginSection">
+          <div className="loginTextDiv">
+            <p className="LoginText">
+              Login here as a newly registered customer or a new customer. Your
+              credentials are highly secured and if you desire, you can chose
+              multiplevel authentication.
+            </p>
+          </div>
+          <div className="loginInput">
+            <h3 className="loginText">Login Here</h3>
+            <form noValidate autoComplete="off">
+              <div className="firstInput">
+                <TextField
+                  name="email"
+                  label="Email"
+                  variant="outlined"
+                  fullWidth
+                  value={this.state.form.login.email.value}
+                  onChange={value => this.updateInput(value, "email", "login")}
+                  disabled={this.state.form.register.name.value !== ""}
+                />
+              </div>
+              <div>
+                <TextField
+                  name="password"
+                  label="Password"
+                  variant="outlined"
+                  type="password"
+                  value={this.state.form.login.password.value}
+                  onChange={value =>
+                    this.updateInput(value, "password", "login")
+                  }
+                  disabled={this.state.form.register.name.value !== ""}
+                  fullWidth
+                />
+              </div>
+              <div className="submitButton">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => this.submitUserInfo("Login")}
+                >
+                  Login
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div>
-          <h3 className="loginText">Login Here</h3>
-          <form noValidate autoComplete="off">
-            <div className="firstInput">
-              <TextField
-                name="email"
-                label="Email"
-                variant="outlined"
-                fullWidth
-                value={this.state.form.login.email.value}
-                onChange={value => this.updateInput(value, "email", "login")}
-                disabled={this.state.form.register.name.value !== ""}
-              />
-            </div>
-            <div>
-              <TextField
-                name="password"
-                label="Password"
-                variant="outlined"
-                type="password"
-                value={this.state.form.login.password.value}
-                onChange={value => this.updateInput(value, "password", "login")}
-                disabled={this.state.form.register.name.value !== ""}
-                fullWidth
-              />
-            </div>
-            <div className="submitButton">
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => this.submitUserInfo("Login")}
-              >
-                Login
-              </Button>
-            </div>
-          </form>
-        </div>
-        <div>
-          <h3 className="loginText">Create New Account</h3>
-          <form noValidate autoComplete="off">
-            <div className="firstInput">
-              <TextField
-                name="name"
-                //id="outlined-basic"
-                label="Name"
-                variant="outlined"
-                //type={this.state.form.name.type}
-                value={this.state.form.register.name.value}
-                onChange={value => this.updateInput(value, "name", "register")}
-                fullWidth
-                disabled={this.state.form.login.email.value !== ""}
-              />
-            </div>
-            <div>
-              <TextField
-                name="email"
-                //id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                // type={this.state.form.email.type}
-                value={this.state.form.register.email.value}
-                onChange={value => this.updateInput(value, "email", "register")}
-                fullWidth
-                disabled={this.state.form.login.email.value !== ""}
-              />
-            </div>
-            <div className="lastInput">
-              <TextField
-                name="password"
-                //id="outlined-basic"
-                label="Password"
-                variant="outlined"
-                type="password"
-                value={this.state.form.register.password.value}
-                onChange={value =>
-                  this.updateInput(value, "password", "register")
-                }
-                fullWidth
-                disabled={this.state.form.login.password.value !== ""}
-              />
-            </div>
-            <div className="lastInput">
-              <TextField
-                name="confirmPassword"
-                //id="outlined-basic"
-                label="ConfirmPassword"
-                variant="outlined"
-                type="password"
-                value={this.state.form.register.confirmPassword.value}
-                onChange={value =>
-                  this.updateInput(value, "confirmPassword", "register")
-                }
-                fullWidth
-                disabled={this.state.form.login.email.value !== ""}
-              />
-            </div>
 
-            <div className="submitButton">
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => this.submitUserInfo("Register")}
-              >
-                Register
-              </Button>
-            </div>
-          </form>
+        <div className="registerSection">
+          <div className="registerInput">
+            <h3 className="loginText">Create New Account</h3>
+            <form noValidate autoComplete="off">
+              <div className="firstInput">
+                <TextField
+                  name="name"
+                  //id="outlined-basic"
+                  label="Name"
+                  variant="outlined"
+                  //type={this.state.form.name.type}
+                  value={this.state.form.register.name.value}
+                  onChange={value =>
+                    this.updateInput(value, "name", "register")
+                  }
+                  fullWidth
+                  disabled={this.state.form.login.email.value !== ""}
+                />
+              </div>
+              <div>
+                <TextField
+                  name="email"
+                  //id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
+                  // type={this.state.form.email.type}
+                  value={this.state.form.register.email.value}
+                  onChange={value =>
+                    this.updateInput(value, "email", "register")
+                  }
+                  fullWidth
+                  disabled={this.state.form.login.email.value !== ""}
+                />
+              </div>
+              <div className="lastInput">
+                <TextField
+                  name="password"
+                  //id="outlined-basic"
+                  label="Password"
+                  variant="outlined"
+                  type="password"
+                  value={this.state.form.register.password.value}
+                  onChange={value =>
+                    this.updateInput(value, "password", "register")
+                  }
+                  fullWidth
+                  disabled={this.state.form.login.password.value !== ""}
+                />
+              </div>
+              <div className="lastInput">
+                <TextField
+                  name="confirmPassword"
+                  //id="outlined-basic"
+                  label="ConfirmPassword"
+                  variant="outlined"
+                  type="password"
+                  value={this.state.form.register.confirmPassword.value}
+                  onChange={value =>
+                    this.updateInput(value, "confirmPassword", "register")
+                  }
+                  fullWidth
+                  disabled={this.state.form.login.email.value !== ""}
+                />
+              </div>
+
+              <div className="submitButton">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => this.submitUserInfo("Register")}
+                >
+                  Register
+                </Button>
+              </div>
+            </form>
+          </div>
+          <div className="registerTextDiv">
+            <h2 className="loginText">Terms and Services</h2>
+            <p className="LoginText">
+              Upon registering we invite you to review our terms and services
+              involving data protection and use according to the EU regulations.
+              We guarantee utmost privacy and non-disclosure of user
+              information.{" "}
+            </p>
+          </div>
         </div>
-        <div>
-          <h2 className="loginText">Terms and Services</h2>
-          <p className="LoginText">
-            Upon regisering we invite you to review our terms and services
-            involving data protection and use according to the EU regulations.
-            We guarantee utmost privacy and non-disclosure of user information.{" "}
-          </p>
-        </div>
-        {/* <div className="col-five">Div 5</div> */}
       </div>
     );
   }

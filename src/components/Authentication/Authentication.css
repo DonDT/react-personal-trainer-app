@@ -12,13 +12,26 @@ body {
 }
 
 .main_container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 500px 500px;
   grid-template-rows: 500px 500px;
   justify-content: space-around;
   align-content: center;
   grid-gap: 10px;
-  padding: 10px;
+  padding: 10px; */
+
+  display: flex;
+  flex-wrap: wrap;
+  padding: 80px;
+}
+.loginSection {
+  display: flex;
+  width: 90%;
+  margin-bottom: 50px;
+}
+.registerSection {
+  display: flex;
+  width: 900%;
 }
 
 .main_container > div {
@@ -48,4 +61,36 @@ body {
 }
 .lastInput {
   margin-top: 30px;
+}
+.loginTextDiv {
+  border: 1px solid grey;
+  padding: 15px;
+  border-radius: 15px;
+  width: 50%;
+  align-items: "center";
+  justify-content: "center";
+  text-align: center;
+}
+
+.registerTextDiv {
+  border: 1px solid grey;
+  padding: 15px;
+  border-radius: 15px;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.loginInput {
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 55px;
+  margin: 20px;
+}
+.registerInput {
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 45px;
+  margin: 30px;
 }
