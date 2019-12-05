@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Customers from "./components/customers";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import CustomerDetail from "./components/customerDetail";
 import CustomerCalender from "./components/customerCalender";
 import WellcomePage from "./components/WellcomePage/WellcomePage";

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { SIGN_IN, SIGN_UP, AUTO_SIGN_IN, SIGN_OUT } from "../types";
-import { SIGNUP, SIGNIN, FIREBASEURL, REFRESH } from "../../authActions";
+import { SIGNUP, SIGNIN, REFRESH } from "../../authActions";
 
 export function signUp(data) {
   const request = axios({

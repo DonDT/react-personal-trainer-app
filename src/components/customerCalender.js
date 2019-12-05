@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-//import Moment from "moment";
 import "../App.css";
 
 const CustomerCalender = props => {
@@ -26,27 +25,10 @@ const CustomerCalender = props => {
           })
         )
       )
-      // .then(response =>
-      //   response.content.forEach(item =>
-      //     setData(...data, {
-      //       title: `${item.activity} | Duration:${item.duration} min`,
-      //       date: `${item.date}`
-      //     })
-      //   )
-      // )
-      //.then(response => setItems(response.content))
+
       .then(response => setShow(true))
       .catch(error => console.log(error));
   };
-
-  // const setItems = datta => {
-  //   datta.forEach(item => {
-  //     return setData(...data, {
-  //       title: `${item.activity} | Duration:${item.duration} min`,
-  //       date: `${item.date}`
-  //     });
-  //   });
-  // };
 
   return (
     <div>
