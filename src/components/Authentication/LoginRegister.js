@@ -5,9 +5,8 @@ import Button from "@material-ui/core/Button";
 import ValidationRules from "../../utilsFunctions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { signIn, signUp } from "../../store/actions/user_actions";
-import { setTokens } from "../../authActions";
-import { withRouter } from "react-router-dom";
+import { signIn, signUp, autoSignIn } from "../../store/actions/user_actions";
+import { setTokens, getTokens } from "../../authActions";
 
 class LoginRegister extends Component {
   state = {
@@ -75,6 +74,25 @@ class LoginRegister extends Component {
     }
   };
 
+  componentDidMount() {
+    getTokens(value => {
+      if (value) {
+        console.log(value.refreshToken);
+      }
+      if (value) {
+        this.props.autoSignIn(value.refreshToken).then(() => {
+          if (!this.props.User.auth.token) {
+            this.props.history.push("/login_register");
+          } else {
+            setTokens(this.props.User.auth, () => {
+              this.props.history.push("/customers");
+            });
+          }
+        });
+      }
+    });
+  }
+
   updateInput = (event, name, kind) => {
     this.setState({
       hasErrors: false
@@ -85,14 +103,11 @@ class LoginRegister extends Component {
     let rules = formCopy[kind][name].rules;
     let value = event.target.value;
     let valid = ValidationRules(value, rules, formCopy);
-    // console.log(value, rules, formCopy);
 
     formCopy[kind][name].valid = valid;
     this.setState({
       form: formCopy
     });
-
-    //console.log(formCopy[kind][name].valid);
   };
 
   manageAccess = () => {
@@ -106,6 +121,7 @@ class LoginRegister extends Component {
         //console.log("Tokens");
         this.setState({ hasErrors: false });
         this.props.history.push("/customers");
+        this.setState({ userIsSignedIn: true });
       });
     }
   };
@@ -165,11 +181,9 @@ class LoginRegister extends Component {
             <div className="firstInput">
               <TextField
                 name="email"
-                //id="outlined-basic"
                 label="Email"
                 variant="outlined"
                 fullWidth
-                //type={this.state.form.email.type}
                 value={this.state.form.login.email.value}
                 onChange={value => this.updateInput(value, "email", "login")}
                 disabled={this.state.form.register.name.value !== ""}
@@ -178,7 +192,6 @@ class LoginRegister extends Component {
             <div>
               <TextField
                 name="password"
-                //id="outlined-basic"
                 label="Password"
                 variant="outlined"
                 type="password"
@@ -291,10 +304,7 @@ const mapStateToProps = state => {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signIn, signUp }, dispatch);
+  return bindActionCreators({ signIn, signUp, autoSignIn }, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(LoginRegister));
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRegister);

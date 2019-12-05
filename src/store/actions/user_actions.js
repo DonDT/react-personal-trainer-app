@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SIGN_IN, SIGN_UP, AUTO_SIGN_IN } from "../types";
+import { SIGN_IN, SIGN_UP, AUTO_SIGN_IN, SIGN_OUT } from "../types";
 import { SIGNUP, SIGNIN, FIREBASEURL, REFRESH } from "../../authActions";
 
 export function signUp(data) {
@@ -75,5 +75,12 @@ export const autoSignIn = refToken => {
   return {
     type: AUTO_SIGN_IN,
     payload: request
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: SIGN_OUT,
+    payload: ""
   };
 };

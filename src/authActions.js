@@ -8,10 +8,10 @@ export const setTokens = (values, cb) => {
   // here the data is simply retrived and passed, to the callback of getTokens, which is cb.
 
   let objectTosave = {
-    "@token": values.token,
-    "@refreshToken": values.refToken,
+    token: values.token,
+    refreshToken: values.refToken,
     //"@expireToken": expiration.toString(), // we can't store numbers, so we convert them to strings
-    "@uid": values.uid
+    uid: values.uid
   };
 
   localStorage.setItem("userData", JSON.stringify(objectTosave));

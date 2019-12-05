@@ -53,8 +53,13 @@ const EditCustomer = props => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Edit Customer
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleClickOpen}
+        style={{ padding: "3px" }}
+      >
+        Edit
       </Button>
       <Dialog
         open={open}

@@ -42,7 +42,18 @@ const AddCustomer = props => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color="white"
+        onClick={handleClickOpen}
+        style={{
+          textDecoration: "none",
+          color: "white",
+          border: "1px solid white",
+          padding: "5px",
+          borderRadius: "15px"
+        }}
+      >
         Add Customer
       </Button>
       <Dialog

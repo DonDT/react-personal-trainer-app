@@ -5,19 +5,38 @@ import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
-import { getTokens } from "../authActions";
+import { signOut } from "../store/actions/user_actions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Link } from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { FaTrashAlt } from "react-icons/fa";
 
-const Customers = () => {
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  }
+}));
+
+const Customers = props => {
   const [customers, setCustomers] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetchCustomers();
-    getTokens(value => {
-      console.log(value);
-    });
   }, []);
+
+  const classes = useStyles();
 
   const fetchCustomers = () => {
     fetch("https://customerrest.herokuapp.com/api/customers")
@@ -115,17 +134,62 @@ const Customers = () => {
           color="primary"
           onClick={() => deleteCustomer(value)}
         >
-          Delete
+          <FaTrashAlt onClick={() => deleteCustomer(value)} />
         </Button>
       )
     }
   ];
 
+  const handleSignOut = () => {
+    props.signOut();
+    window.localStorage.clear();
+    props.history.push("/");
+  };
+
   return (
     <div>
-      <div>
-        <AddCustomer saveCustomer={saveCustomer} setOpen={setOpen} />
+      <div className={classes.root} style={{ marginBottom: "100px" }}>
+        <AppBar position="static">
+          <Toolbar>
+            {/* <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            > */}
+            <AddCustomer saveCustomer={saveCustomer} setOpen={setOpen} />
+            {/* </IconButton> */}
+            <Typography variant="h6" className={classes.title}>
+              <Link
+                to="/customers/trainings"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  border: "1px solid white",
+                  padding: "5px"
+                }}
+              >
+                {" "}
+                Customer Trainings
+              </Link>
+            </Typography>
+            <Button
+              color="inherit"
+              onClick={() => handleSignOut()}
+              style={{
+                textDecoration: "none",
+                color: "white",
+                border: "1px solid white",
+                padding: "5px",
+                borderRadius: "15px"
+              }}
+            >
+              Sign Out
+            </Button>
+          </Toolbar>
+        </AppBar>
       </div>
+
       <ReactTable
         defaultPageSize={10}
         data={customers}
@@ -150,4 +214,14 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+const mapStateToProps = state => {
+  return {
+    User: state.User
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ signOut }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Customers);

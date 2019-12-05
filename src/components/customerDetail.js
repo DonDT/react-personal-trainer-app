@@ -4,6 +4,8 @@ import ReactTable from "react-table";
 import AddTraining from "./AddTraining";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
+import { FaTrashAlt } from "react-icons/fa";
+import { GiCalendar } from "react-icons/gi";
 import Moment from "moment";
 
 const CustomerDetail = props => {
@@ -15,12 +17,9 @@ const CustomerDetail = props => {
     fetchCustomer();
   }, []);
 
-  //if error, put [], as second argument in useEffect
-
   const fetchCustomer = () => {
     fetch("https://customerrest.herokuapp.com/gettrainings")
       .then(response => response.json())
-      //.then(response => console.log(response));
       .then(data => setCustomer(data));
   };
 
@@ -30,52 +29,29 @@ const CustomerDetail = props => {
       accessor: "customer.firstname"
     },
     {
-      Header: "Lasttname",
+      Header: "Lastname",
       accessor: "customer.lastname"
     },
     {
       Header: "Customer Id",
       accessor: "customer.id"
     },
-    {
-      Header: "Address",
-      accessor: "customer.streetaddress"
-    },
-    {
-      Header: "Postcode",
-      accessor: "customer.postcode"
-    },
-    {
-      Header: "Firstname",
-      accessor: "customer.firstname"
-    },
-    {
-      Header: "City",
-      accessor: "customer.city"
-    },
-    {
-      Header: "Email",
-      accessor: "customer.email"
-    },
-    {
-      sortable: false,
-      filterable: false,
-      // accessor: "links[2].href",
-
-      Cell: index => (
-        <Link
-          to={`/customers/${customer[index.index].customer.id}`}
-          //onClick={() => deleteTraining(customer[index.index].id)}
-        >
-          Calendar
-        </Link>
-      )
-    },
     // {
-    //   Header: "Phone",
-    //   accessor: "customer.phone"
+    //   Header: "Address",
+    //   accessor: "customer.streetaddress"
     // },
-
+    // {
+    //   Header: "Postcode",
+    //   accessor: "customer.postcode"
+    // },
+    // {
+    //   Header: "City",
+    //   accessor: "customer.city"
+    // },
+    // {
+    //   Header: "Email",
+    //   accessor: "customer.email"
+    // },
     {
       Header: "Date",
       id: "date",
@@ -83,7 +59,6 @@ const CustomerDetail = props => {
         Moment(row.date)
           .local()
           .format("YYYY-MM-DD")
-      //.format("DD - MMM - YYYY")
     },
     {
       Header: "Duration",
@@ -92,6 +67,18 @@ const CustomerDetail = props => {
     {
       Header: "Activity",
       accessor: "activity"
+    },
+    {
+      sortable: false,
+      filterable: false,
+      Cell: index => (
+        <Link
+          to={`/customers/${customer[index.index].customer.id}`}
+          style={{ textDecoration: "none", color: "#3880ff" }}
+        >
+          View <GiCalendar style={{ paddingTop: "2px" }} />
+        </Link>
+      )
     },
     {
       sortable: false,
@@ -109,14 +96,6 @@ const CustomerDetail = props => {
       sortable: false,
       filterable: false,
       accessor: "links[2].href",
-      // Cell: ({ value }) => (
-      //   <Button
-      //     size="small"
-      //     color="primary"
-      //     onClick={() => deleteTraining(value)}
-      //   >
-      //     Delete
-      //   </Button>
 
       Cell: index => (
         <Button
@@ -124,13 +103,11 @@ const CustomerDetail = props => {
           color="primary"
           onClick={() => deleteTraining(customer[index.index].id)}
         >
-          Delete
+          <FaTrashAlt />
         </Button>
       )
     }
   ];
-
-  //console.log(customer);
 
   const saveTraining = (newTraining, id) => {
     fetch(`https://customerrest.herokuapp.com/api/trainings`, {
@@ -186,7 +163,6 @@ const CustomerDetail = props => {
           autoHideDuration={3000}
           onClose={handleClose}
           message={message}
-          //color="blue"
         />
       )}
     </div>

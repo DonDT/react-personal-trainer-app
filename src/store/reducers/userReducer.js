@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP, AUTO_SIGN_IN } from "../types";
+import { SIGN_IN, SIGN_UP, AUTO_SIGN_IN, SIGN_OUT } from "../types";
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -28,6 +28,12 @@ export default function(state = {}, action) {
           token: action.payload.id_token || false,
           refToken: action.payload.refresh_token || false
         }
+      };
+
+    case SIGN_OUT:
+      return {
+        ...state,
+        auth: false
       };
     default:
       return state;

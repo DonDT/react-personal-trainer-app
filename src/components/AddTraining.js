@@ -40,7 +40,7 @@ const AddTraining = props => {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Add Training
+        Add
       </Button>
       <Dialog
         open={open}

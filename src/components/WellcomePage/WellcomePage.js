@@ -4,14 +4,20 @@ import Image2 from "./Images/paige-hathaway-removebg-preview.png";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 import Flip from "react-reveal/Flip";
-import { Link } from "react-router-dom";
-
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import "./WellcomePage.css";
 
 class WellcomePage extends Component {
   state = {
     show: false
   };
+
+  componentDidMount() {
+    if (this.props.User.auth) {
+      this.props.history.push("/customers");
+    }
+  }
 
   handleClick = () => {
     this.setState({
@@ -32,12 +38,16 @@ class WellcomePage extends Component {
         <div className="images">
           <Fade left delay={500}>
             <div className="image-1">
-              <img src={Image1} alt="male trainer" />
+              <img src={Image1} alt="male trainer" className="image_1_style" />
             </div>
           </Fade>
           <Fade right delay={600}>
             <div className="image-2">
-              <img src={Image2} alt="female trainer" />
+              <img
+                src={Image2}
+                alt="female trainer"
+                className="image_2_style"
+              />
             </div>
           </Fade>
         </div>
@@ -72,4 +82,10 @@ class WellcomePage extends Component {
   }
 }
 
-export default WellcomePage;
+const mapStateToProps = state => {
+  return {
+    User: state.User
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(WellcomePage));

@@ -10,16 +10,6 @@ import LoginRegister from "./components/Authentication/LoginRegister";
 function App() {
   return (
     <div className="App">
-      {/* <h1>Personal Trainer </h1> */}
-      {/* <h3>
-        <Link to="/customers">Customers</Link>
-      </h3>
-       <h3>
-        <Link to="/customers/trainings">Trainings</Link>
-      </h3>
-      <h3>
-        <Link to="/wellcome">Wellcome</Link>
-      </h3> */}
       <Switch>
         <Route path="/customers" exact component={Customers} />
         <Route path="/login_register" component={LoginRegister} />
