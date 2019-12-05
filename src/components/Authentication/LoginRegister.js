@@ -8,10 +8,14 @@ import { bindActionCreators } from "redux";
 import { signIn, signUp, autoSignIn } from "../../store/actions/user_actions";
 import { setTokens, getTokens } from "../../authActions";
 
+import Zoom from "react-reveal/Zoom";
+
 class LoginRegister extends Component {
   state = {
     type: "Login",
     action: "Login",
+    loginErrors: false,
+    registerErrors: false,
     hasErrors: false,
     form: {
       login: {
@@ -150,7 +154,6 @@ class LoginRegister extends Component {
     if (isFormValid) {
       if (authType === "Login") {
         this.props.signIn(formToSubmit).then(() => {
-          console.log("Login in");
           this.manageAccess();
         });
       } else {
@@ -158,8 +161,16 @@ class LoginRegister extends Component {
           this.manageAccess();
         });
       }
-    } else {
-      this.setState({ hasErrors: true });
+    } else if (!isFormValid && authType === "Login") {
+      this.setState({ hasErrors: true, loginErrors: true });
+      setTimeout(() => {
+        this.setState({ hasErrors: false, loginErrors: false });
+      }, 3000);
+    } else if (!isFormValid && authType === "Register") {
+      this.setState({ hasErrors: true, registerErrors: true });
+      setTimeout(() => {
+        this.setState({ hasErrors: false, registerErrors: false });
+      }, 3000);
     }
 
     console.log(formToSubmit);
@@ -203,7 +214,15 @@ class LoginRegister extends Component {
                   disabled={this.state.form.register.name.value !== ""}
                   fullWidth
                 />
+                <Zoom delay={2000}>
+                  {this.state.hasErrors && this.state.loginErrors && (
+                    <div className="errorLoggingInText">
+                      <h5>Error Logging in</h5>
+                    </div>
+                  )}
+                </Zoom>
               </div>
+
               <div className="submitButton">
                 <Button
                   variant="outlined"
@@ -281,6 +300,13 @@ class LoginRegister extends Component {
                   disabled={this.state.form.login.email.value !== ""}
                 />
               </div>
+              <Zoom delay={2000}>
+                {this.state.hasErrors && this.state.registerErrors && (
+                  <div className="errorLoggingInText">
+                    <h5>Error Registering</h5>
+                  </div>
+                )}
+              </Zoom>
 
               <div className="submitButton">
                 <Button

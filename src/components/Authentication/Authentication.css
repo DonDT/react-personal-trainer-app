@@ -94,3 +94,19 @@ body {
   padding: 45px;
   margin: 30px;
 }
+
+.errorLoggingInText {
+  background-color: #0020e5;
+  width: 150px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  margin-top: 20px;
+  text-align: center;
+}
+.errorLoggingInText h5 {
+  color: white;
+  text-align: center;
+  padding-top: 5px;
+}
