@@ -172,8 +172,6 @@ class LoginRegister extends Component {
         this.setState({ hasErrors: false, registerErrors: false });
       }, 3000);
     }
-
-    console.log(formToSubmit);
   };
 
   render() {
@@ -214,13 +212,14 @@ class LoginRegister extends Component {
                   disabled={this.state.form.register.name.value !== ""}
                   fullWidth
                 />
-                <Zoom delay={2000}>
-                  {this.state.hasErrors && this.state.loginErrors && (
+
+                {this.state.hasErrors && this.state.loginErrors && (
+                  <Zoom delay={1000}>
                     <div className="errorLoggingInText">
                       <h5>Error Logging in</h5>
                     </div>
-                  )}
-                </Zoom>
+                  </Zoom>
+                )}
               </div>
 
               <div className="submitButton">
@@ -246,7 +245,6 @@ class LoginRegister extends Component {
                   //id="outlined-basic"
                   label="Name"
                   variant="outlined"
-                  //type={this.state.form.name.type}
                   value={this.state.form.register.name.value}
                   onChange={value =>
                     this.updateInput(value, "name", "register")
@@ -261,7 +259,6 @@ class LoginRegister extends Component {
                   //id="outlined-basic"
                   label="Email"
                   variant="outlined"
-                  // type={this.state.form.email.type}
                   value={this.state.form.register.email.value}
                   onChange={value =>
                     this.updateInput(value, "email", "register")
@@ -300,13 +297,14 @@ class LoginRegister extends Component {
                   disabled={this.state.form.login.email.value !== ""}
                 />
               </div>
-              <Zoom delay={2000}>
-                {this.state.hasErrors && this.state.registerErrors && (
+
+              {this.state.hasErrors && this.state.registerErrors && (
+                <Zoom delay={1000}>
                   <div className="errorLoggingInText">
                     <h5>Error Registering</h5>
                   </div>
-                )}
-              </Zoom>
+                </Zoom>
+              )}
 
               <div className="submitButton">
                 <Button
